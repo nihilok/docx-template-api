@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.full-page-component {
+  width: 100vw;
+  height: 100vh;
+}
+
+.form-group {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: clamp(30ch, 50%, 70ch);
+  margin: auto;
+}
+
+.form-control {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.form-control label {
+  margin-right: 1rem;
+  margin-left: -1rem;
+}
+
+.outer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

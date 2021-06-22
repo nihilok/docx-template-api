@@ -1,0 +1,19 @@
+.template-list-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    margin: 1rem auto;
+    border: 1px solid;
+    padding: 1rem;
+}
+
+.template-name {
+    text-align: left;
+}
+
+.template-link {
+    cursor: pointer
+}
+
+.template-link:hover {
+    text-decoration: underline;
+}
