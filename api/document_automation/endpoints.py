@@ -8,8 +8,6 @@ from ..db.models import Letter, LetterPydantic, LetterVariable, VariablesOut, Va
 from ..db.models.users import UserPydantic, User
 
 router = APIRouter()
-template_path = './letter_templates/'
-
 
 @router.get('/all-templates/')
 async def get_templates(user: UserPydantic = Depends(get_current_active_user)) -> list:
