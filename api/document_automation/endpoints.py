@@ -9,6 +9,7 @@ from ..db.models.users import UserPydantic, User
 
 router = APIRouter()
 
+
 @router.get('/all-templates/')
 async def get_templates(user: UserPydantic = Depends(get_current_active_user)) -> list:
     user_obj = await User.get(id=user.id)
@@ -61,7 +62,3 @@ async def set_variables(variables: VariablesIn, user: UserPydantic = Depends(get
         letter.variables = None
     await letter.add_variables(variables)
     return {'message': 'variables set'}
-
-
-
-
