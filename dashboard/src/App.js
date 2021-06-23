@@ -16,9 +16,9 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true)
   const [authState, authDispatch] = useReducer(authReducer, initialAuthState)
-  useEffect(()=>{
+  useEffect(() => {
     CheckToken(authState, authDispatch, setIsLoading)
-  },[])
+  }, [])
   return (
       <AuthContext.Provider
           value={{authState, authDispatch}}>
@@ -29,6 +29,11 @@ function App() {
                 <Route exact path="/" component={TemplateListView}/>
                 <Route path="/new" component={NewTemplateView}/>
                 <Route path="/render/:id" component={RenderTemplateForm}/>
+                <Route path="/logout"
+                       component={() => {
+                         authDispatch({type: 'LOGOUT'})
+                         return <Redirect to="/"/>
+                       }}/>
               </div> : <LoginForm/>}
         </div>
       </AuthContext.Provider>

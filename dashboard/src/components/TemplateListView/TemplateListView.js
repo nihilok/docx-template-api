@@ -46,12 +46,13 @@ const TemplateListView = () => {
                   return (
                       <div className="template-list-row" key={template.id}>
                         <div className="template-name">{template.name}</div>
-                        <div className="template-link" onClick={handleOptions(template.id)}>Options</div>
+                        <div className="template-link" onClick={handleOptions(template.id)}>Edit</div>
                         <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
                       </div>
                   )
                 })}
-                <Link to="/new">Upload new template</Link>
+                <div className="options-footer"><Link to="/new">Upload new template</Link>
+                  <Link to="/logout">Logout</Link></div>
               </div> : <NewTemplateView getTemplates={getTemplates}/>
 
 );
