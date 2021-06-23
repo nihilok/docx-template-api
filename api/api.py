@@ -9,7 +9,7 @@ from . import authentication
 
 # Create ASGI app:
 app = FastAPI(root_path='/msword')
-app.include_router(authentication.router, prefix='/msword')
+app.include_router(authentication.router)
 app.include_router(document_automation.router)
 
 
