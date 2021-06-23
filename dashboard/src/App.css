@@ -2,11 +2,13 @@
   text-align: center;
   display: flex;
   justify-content: center;
+    padding: 2rem;
 }
 
 .full-page-component {
   width: 100vw;
   height: 100vh;
+
 }
 
 .form-group {
@@ -15,7 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: clamp(30ch, 50%, 70ch);
+  max-width: 90vw;
   margin: auto;
 }
 
@@ -24,11 +26,17 @@
   grid-template-columns: 1fr 3fr;
   margin: 1rem 0;
   width: 100%;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .form-control {
+    grid-template-columns: 1fr;
+  }
 }
 
 .form-control label {
-  margin-right: 1rem;
-  margin-left: -1rem;
+  text-align: left;
 }
 
 .outer {

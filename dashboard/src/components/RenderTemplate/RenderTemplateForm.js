@@ -65,7 +65,9 @@ const RenderTemplateForm = () => {
               ))
               : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} {variables? <input type="submit"
                                                                                                        value="Render Report"/>: ''}
-            <a ref={downloadRef}>Download</a>
+            <a
+                style={{marginTop: '1rem'}}
+                ref={downloadRef}>{downloadRef.current ? 'Download Report' : ''}</a>
         </form>
         <div className="options-footer">
 
