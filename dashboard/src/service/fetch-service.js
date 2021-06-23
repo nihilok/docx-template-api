@@ -97,6 +97,7 @@ export const FetchWithToken = async (url, authState, setData = null, method = 'G
   })
   let fetchInit = {
     headers,
+    method
   }
   if (body) {
     fetchInit = parseBody(fetchInit, body, authState.token, method)
