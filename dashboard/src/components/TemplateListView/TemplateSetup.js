@@ -38,6 +38,10 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
 
   }
 
+  const handleCancel = () => {
+      setState(null)
+  }
+
   const handleDelete = (e) => {
     setDeleting(true)
     console.log(deleting)
@@ -69,7 +73,7 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
               : <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your template?</div> } <input type="submit"
                                                                                                       value="Save"/>
         </form>
-        <div className="options-footer"><input type="submit" onClick={handleDelete} value="Delete"/></div>
+        <div className="options-footer"><input type="submit" onClick={handleCancel} value="Cancel"/><input type="submit" onClick={handleDelete} value="Delete"/></div>
         {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id)}
                                       cancel={() => setDeleting(false)}/> : ''}
       </>
