@@ -11,6 +11,7 @@ const NewTemplateFormComponent = ({getTemplates}) => {
   const [fileState, setFileState] = useState(null)
   const [nameState, setNameState] = useState('')
   const [variablesState, setVariablesState] = useState(null)
+  let history = useHistory();
 
 
   const onSubmit = (e) => {
@@ -45,7 +46,7 @@ const NewTemplateFormComponent = ({getTemplates}) => {
         <div className="form-control">
           <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile" onInput={handleInput} required/>
         </div>
-        <input type="submit" value="Upload Template"/>
+        <div className="options-footer"><input type="submit" value="Upload"/><input type="button" value="Back" onClick={()=>{history.push('/')}}/></div>
       </form>
   );
 };

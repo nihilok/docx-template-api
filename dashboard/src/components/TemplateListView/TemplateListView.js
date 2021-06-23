@@ -41,7 +41,7 @@ const TemplateListView = () => {
                                       getTemplates={getTemplates}/> :
           templateListState && templateListState.length ?
               <div>
-                <h2>Current Templates:</h2>
+                <h2>Current Report Templates:</h2>
                 {templateListState.map(template => {
                   return (
                       <div className="template-list-row" key={template.id}>

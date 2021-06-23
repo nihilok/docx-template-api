@@ -9,8 +9,8 @@ const RenderTemplateForm = () => {
 
   const letter_id = useParams()
   const [variables, setVariables] = useState(null)
-  useEffect(()=>{
-    FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState, setVariables, )
+  useEffect(() => {
+    FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState, setVariables,)
   }, [])
 
   const {authState} = useContext(AuthContext)
@@ -39,13 +39,13 @@ const RenderTemplateForm = () => {
 
 
     FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', body)
-        .then((data)=>{
+        .then((data) => {
           const href = window.URL.createObjectURL(data);
           const a = downloadRef.current;
           a.download = `GeneratedReport-${variables.letter_id}-${new Date()}.docx`;
           a.href = href;
           setDownloadReady(true)
-        }).catch(err=>console.log(err))
+        }).catch(err => console.log(err))
   }
 
   return (
@@ -54,26 +54,28 @@ const RenderTemplateForm = () => {
         <form onSubmit={handleSubmit} className={"form-group"}>
           {variables ? variables.variables.map((variable, index) => (
                   <div className="form-control" key={variable.var_name}>
-                    <label>{variable.var_prompt ? variable.var_prompt : variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>{variable.var_name.startsWith('__para_') ?
-                      <textarea name={variable.var_name}
-                                onChange={handleChange(index)}
-                                value={variable.response || ''}
-                      rows="8"/> :
-                      <input type="text" name={variable.var_name}
-                             value={variable.response|| ''}
-                             onChange={handleChange(index)}/>}
+                    <label>{variable.var_prompt ? variable.var_prompt :
+                        variable.var_name.startsWith('__para_') ?
+                            variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
+                    {variable.var_name.startsWith('__para_') ?
+                        <textarea name={variable.var_name}
+                                  onChange={handleChange(index)}
+                                  value={variable.response || ''}
+                                  rows="8"/> :
+                        <input type="text" name={variable.var_name}
+                               value={variable.response || ''}
+                               onChange={handleChange(index)}/>}
                   </div>
               ))
-              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} {variables? <input type="submit"
-                                                                                                       value="Render Report"/>: ''}
-            <a
-                style={{marginTop: '1rem'}}
-                ref={downloadRef}>{downloadReady ? 'Download Report' : ''}</a>
+              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
+
+          <div className="options-footer"><input type="button" value="Back" onClick={() => {
+            history.push('/')
+          }}/>{variables ? <input type="submit"
+                                  value="Render Report"/> : ''}</div>
+          <a style={{marginTop: '1rem'}}
+             ref={downloadRef}>{downloadReady ? 'Download Report' : ''}</a>
         </form>
-        <div className="options-footer">
-
-        </div>
-
       </>
   );
 };

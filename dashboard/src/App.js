@@ -25,7 +25,8 @@ function App() {
         <div className="App">
 
           {authState.isAuthenticated ?
-              <div className="outer container"><h1>Template Dashboard</h1>
+              <div className="outer container">
+                <h1>Clinical Reports Dashboard</h1>
                 <Route exact path="/" component={TemplateListView}/>
                 <Route path="/new" component={NewTemplateView}/>
                 <Route path="/render/:id" component={RenderTemplateForm}/>
