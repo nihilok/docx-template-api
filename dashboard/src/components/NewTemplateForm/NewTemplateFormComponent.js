@@ -35,7 +35,7 @@ const NewTemplateFormComponent = ({getTemplates}) => {
                          requestObj={variablesState}
                          variables={variablesState.variables}
                          setState={setVariablesState}
-                         getTemplates={getTemplates ? getTemplates : undefined}/>
+                         getTemplates={getTemplates}/>
           </> :
 
       <form className="form-group" onSubmit={onSubmit} ref={formRef}>
@@ -45,7 +45,7 @@ const NewTemplateFormComponent = ({getTemplates}) => {
         <div className="form-control">
           <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile" onInput={handleInput} required/>
         </div>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Upload Template"/>
       </form>
   );
 };

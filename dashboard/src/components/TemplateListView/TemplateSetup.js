@@ -31,8 +31,9 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
 
     FetchWithToken(`/set-variables/`, authState, null, 'PUT', body)
         .then(() => {
+          setState(null)
           history.push('/');
-          getTemplates().finally(setState(null))
+          window.location.reload()  // TODO: SORT THIS OUT!
         })
 
   }
@@ -46,23 +47,26 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
     FetchWithToken(`/delete-template/?letter_id=${id}`, authState, null, 'DELETE')
         .finally(() => {
           setDeleting(false)
-          getTemplates().finally(setState(null))
+          setState(null)
+          history.push('/')
+          window.location.reload() // TODO: SORT THIS OUT!
         })
   }
 
   return (
       <>
         <h3>Set variable prompts:</h3>
+        <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank, the displayed variable name will be used as prompt.</small>
         <form onSubmit={handleSubmit} className="form-group">
-          {variableListState ? variableListState.map((variable, index) => (
+          {variableListState.length ? variableListState.map((variable, index) => (
                   <div className="form-control" key={variable.var_name}>
-                    <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + '(paragraph)' : variable.var_name}</label>
+                    <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
                       <input type="text" name={variable.var_name}
                              value={variable.var_prompt || ''}
                              onChange={handleChange(index)}/>
                   </div>
               ))
-              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} <input type="submit"
+              : <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your template?</div> } <input type="submit"
                                                                                                       value="Save"/>
         </form>
         <div className="options-footer"><input type="submit" onClick={handleDelete} value="Delete"/></div>

@@ -25,7 +25,7 @@ function App() {
         <div className="App">
 
           {authState.isAuthenticated ?
-              <div className="outer"><h1>Template Dashboard</h1>
+              <div className="outer container"><h1>Template Dashboard</h1>
                 <Route exact path="/" component={TemplateListView}/>
                 <Route path="/new" component={NewTemplateView}/>
                 <Route path="/render/:id" component={RenderTemplateForm}/>
@@ -34,7 +34,7 @@ function App() {
                          authDispatch({type: 'LOGOUT'})
                          return <Redirect to="/"/>
                        }}/>
-              </div> : <LoginForm/>}
+              </div> : <div className="container"><LoginForm/></div>}
         </div>
       </AuthContext.Provider>
   );
