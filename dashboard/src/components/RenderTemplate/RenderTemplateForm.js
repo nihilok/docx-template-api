@@ -54,7 +54,7 @@ const RenderTemplateForm = () => {
         <form onSubmit={handleSubmit} className={"form-group"}>
           {variables ? variables.variables.map((variable, index) => (
                   <div className="form-control" key={variable.var_name}>
-                    <label>{variable.var_prompt || variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>{variable.var_name.startsWith('__para_') ?
+                    <label>{variable.var_prompt ? variable.var_prompt : variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>{variable.var_name.startsWith('__para_') ?
                       <textarea name={variable.var_name}
                                 onChange={handleChange(index)}
                                 value={variable.response || ''}
