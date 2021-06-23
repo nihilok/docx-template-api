@@ -65,8 +65,6 @@ export const FetchAuth = async (
     method: 'POST',
     body: formData
   }).then((response) => {
-      console.log(response)
-
     if (response.status !== 200) {
       throw new Error(`Bad response: ${response.status}`)
     }
