@@ -1,15 +1,15 @@
 import React, {useContext, useState} from 'react';
 import {FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
-import {set} from "react-hook-form";
 import {useHistory} from "react-router-dom";
+import DialogueOkCancel from "../Modals/DialogueOkCancel";
 
-const TemplateSetup = ({letter_id, variables, requestObj, setState}) => {
+const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates}) => {
 
   const [variableListState, setVariableListState] = useState(variables)
+  const [deleting, setDeleting] = useState(false)
   const {authState} = useContext(AuthContext)
   let history = useHistory();
-
 
   const handleChange = index => (event) => {
     let newArr = [...variableListState];
@@ -30,11 +30,24 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState}) => {
     }
 
     FetchWithToken(`/set-variables/`, authState, null, 'PUT', body)
-        .then(()=>{
-          setState(null)
+        .then(() => {
           history.push('/');
+          getTemplates().finally(setState(null))
         })
 
+  }
+
+  const handleDelete = (e) => {
+    setDeleting(true)
+    console.log(deleting)
+  }
+
+  const deleteTemplate = (id) => {
+    FetchWithToken(`/delete-template/?letter_id=${id}`, authState, null, 'DELETE')
+        .finally(() => {
+          setDeleting(false)
+          getTemplates().finally(setState(null))
+        })
   }
 
   return (
@@ -48,8 +61,12 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState}) => {
                                                              onChange={handleChange(index)}/>
                   </div>
               ))
-              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} <input type="submit"/>
+              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} <input type="submit"
+                                                                                                      value="Save"/>
         </form>
+        <div className="options-footer"><input type="submit" onClick={handleDelete} value="Delete"/></div>
+        {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id)}
+                                      cancel={() => setDeleting(false)}/> : ''}
       </>
   );
 };

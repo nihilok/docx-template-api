@@ -1,10 +1,11 @@
 import React from 'react';
 import NewTemplateFormComponent from "./NewTemplateFormComponent";
 
-const NewTemplateView = () => {
+const NewTemplateView = ({getTemplates}) => {
   return (
       <>
-        <NewTemplateFormComponent />
+        <h3>Upload Template</h3>
+        <NewTemplateFormComponent getTemplates={getTemplates || undefined}/>
       </>
   );
 };

@@ -2,9 +2,10 @@ import {useRef} from "react";
 
 
 export const CheckToken = async (authState, authDispatch, setIsLoading) => {
-  const token = JSON.parse(localStorage.getItem('token'))
+  let token = localStorage.getItem('token')
 
   if (token) {
+    token = JSON.parse(token)
     fetch(`${authState.apiBaseUrl}/check_token/`,
         {
           headers: {'Content-Type': 'application/json'},

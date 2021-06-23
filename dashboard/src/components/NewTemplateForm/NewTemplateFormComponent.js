@@ -4,7 +4,7 @@ import {FetchWithToken} from "../../service/fetch-service";
 import {useHistory} from "react-router-dom";
 import TemplateSetup from "../TemplateListView/TemplateSetup";
 
-const NewTemplateFormComponent = () => {
+const NewTemplateFormComponent = ({getTemplates}) => {
 
   const {authState} = useContext(AuthContext)
   const formRef = useRef(null)
@@ -34,7 +34,8 @@ const NewTemplateFormComponent = () => {
           <TemplateSetup letter_id={variablesState.letter_id}
                          requestObj={variablesState}
                          variables={variablesState.variables}
-                         setState={setVariablesState}/>
+                         setState={setVariablesState}
+                         getTemplates={getTemplates ? getTemplates : undefined}/>
           </> :
 
       <form className="form-group" onSubmit={onSubmit} ref={formRef} encType={"multipart/form-data"}>

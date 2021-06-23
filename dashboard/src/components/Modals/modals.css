@@ -1,0 +1,26 @@
+.dimmed-bg {
+    background-color: rgba(0, 0, 0, .9);
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal {
+    background-color: var(--modal-background);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 12px 3px black;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+}

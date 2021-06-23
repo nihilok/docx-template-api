@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../../context/AuthContext";
 import {FetchWithToken} from "../../service/fetch-service";
-import Loader from "../Loaders/Loader";
 import './template-list.css'
 import TemplateSetup from "./TemplateSetup";
+import NewTemplateView from "../NewTemplateForm/NewTemplateView";
 
 const TemplateListView = () => {
 
@@ -34,20 +34,23 @@ const TemplateListView = () => {
 
   return (
 
-      variablesState ? <TemplateSetup letter_id={variablesState.letter_id} requestObj={variablesState} variables={variablesState.variables} setState={setVariablesState}/> : templateListState ?
-          <div>
-            <h2>Current Templates:</h2>
-            {templateListState.map(template => {
-              return (
-                  <div className="template-list-row" key={template.id}>
-                    <div className="template-name">{template.name}</div>
-                    <div className="template-link" onClick={handleOptions(template.id)}>Options</div>
-                    <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
-                  </div>
-              )
-            })}</div> : <Loader/>
+      variablesState ? <TemplateSetup letter_id={variablesState.letter_id} requestObj={variablesState}
+                                      variables={variablesState.variables} setState={setVariablesState}
+                                      getTemplates={getTemplates}/> :
+          templateListState && templateListState.length ?
+              <div>
+                <h2>Current Templates:</h2>
+                {templateListState.map(template => {
+                  return (
+                      <div className="template-list-row" key={template.id}>
+                        <div className="template-name">{template.name}</div>
+                        <div className="template-link" onClick={handleOptions(template.id)}>Options</div>
+                        <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
+                      </div>
+                  )
+                })}</div> : <NewTemplateView getTemplates={getTemplates}/>
 
-  );
+);
 };
 
 export default TemplateListView;

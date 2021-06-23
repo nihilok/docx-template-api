@@ -17,3 +17,10 @@
 .template-link:hover {
     text-decoration: underline;
 }
+
+.options-footer {
+    margin: 1rem auto;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
