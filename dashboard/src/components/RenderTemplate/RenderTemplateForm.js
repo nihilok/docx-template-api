@@ -38,10 +38,7 @@ const RenderTemplateForm = () => {
     console.log(body)
 
 
-    FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', downloadRef.current, body)
-        .then(() => {
-          setDownloadReady(true);
-        })
+    FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', downloadRef.current, setDownloadReady, body)
 
   }
 
@@ -63,7 +60,7 @@ const RenderTemplateForm = () => {
               ))
               : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} {variables? <input type="submit"
                                                                                                        value="Render Report"/>: ''}
-          {downloadRef.current && downloadReady ? downloadRef.current.href ? <a ref={downloadRef}>Download</a>: '' : ''}
+          {downloadReady ? <a ref={downloadRef}>Download</a> : ''}
         </form>
         <div className="options-footer">
 
