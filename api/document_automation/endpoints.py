@@ -1,6 +1,7 @@
 import datetime
 import pickle
 
+from docx import Document
 from fastapi import APIRouter, Depends, File, UploadFile, Form
 from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
@@ -46,6 +47,22 @@ async def update_template_file(letter_id: int, file: UploadFile = File(...),
     return await LetterPydantic.from_tortoise_orm(letter)
 
 
+async def get_full_text(filename) -> str:
+    doc = Document(filename)
+    full_text = []
+    for para in doc.paragraphs:
+        full_text.append(para.text)
+    return ' '.join(full_text)
+
+
+async def sort_vars(check_text, template_variables) -> list:
+    ordered_vars = []
+    for word in check_text.split(' '):
+        if word[2:-2] in template_variables:
+            ordered_vars.append(word[2:-2])
+    return ordered_vars
+
+
 # TODO: template rendering endpoint
 @router.get('/get-variables/', response_model=VariablesOut)
 async def get_variables(letter_id: int,
@@ -56,9 +73,11 @@ async def get_variables(letter_id: int,
                             letter_id=letter_id)
     defaults = {'time', 'year', 'month', 'day'}
     template = DocxTemplate(letter.filename)
+    check_text = await get_full_text(letter.filename)
     template_variables = [v for v in template.undeclared_template_variables if v not in defaults]
+    ordered_vars = await sort_vars(check_text, template_variables)
     return VariablesOut(variables=[LetterVariable(var_name=variable)
-                                   for variable in template_variables],
+                                   for variable in ordered_vars],
                         letter_id=letter_id)
 
 
