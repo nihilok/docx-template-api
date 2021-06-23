@@ -4,7 +4,7 @@ import {FetchWithToken} from "../../service/fetch-service";
 import './template-list.css'
 import TemplateSetup from "./TemplateSetup";
 import NewTemplateView from "../NewTemplateForm/NewTemplateView";
-import {Redirect, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 
 const TemplateListView = () => {
 
@@ -50,7 +50,9 @@ const TemplateListView = () => {
                         <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
                       </div>
                   )
-                })}</div> : <NewTemplateView getTemplates={getTemplates}/>
+                })}
+                <Link to="/new">Upload new template</Link>
+              </div> : <NewTemplateView getTemplates={getTemplates}/>
 
 );
 };
