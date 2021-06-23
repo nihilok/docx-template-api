@@ -11,7 +11,7 @@ const NewTemplateFormComponent = ({getTemplates}) => {
   const [fileState, setFileState] = useState(null)
   const [nameState, setNameState] = useState('')
   const [variablesState, setVariablesState] = useState(null)
-  let history = useHistory();
+
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -38,12 +38,12 @@ const NewTemplateFormComponent = ({getTemplates}) => {
                          getTemplates={getTemplates ? getTemplates : undefined}/>
           </> :
 
-      <form className="form-group" onSubmit={onSubmit} ref={formRef} encType={"multipart/form-data"}>
+      <form className="form-group" onSubmit={onSubmit} ref={formRef}>
         <div className="form-control">
-          <label htmlFor="templateName">Template Name: </label><input type="text" id="templateName" onChange={handleChange} value={nameState}/>
+          <label htmlFor="templateName">Template Name: </label><input type="text" id="templateName" required onChange={handleChange} value={nameState}/>
         </div>
         <div className="form-control">
-          <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile" onInput={handleInput}/>
+          <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile" onInput={handleInput} required/>
         </div>
         <input type="submit" value="Submit"/>
       </form>

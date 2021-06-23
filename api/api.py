@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI
+# from starlette.staticfiles import StaticFiles
 from tortoise.contrib.fastapi import register_tortoise
 from fastapi.middleware.cors import CORSMiddleware
 from . import document_automation
@@ -10,6 +11,7 @@ from . import authentication
 app = FastAPI(root_path='/msword')
 app.include_router(authentication.router)
 app.include_router(document_automation.router)
+# app.mount('/letter_templates', StaticFiles(directory='letter_templates'), name="templates")
 
 
 

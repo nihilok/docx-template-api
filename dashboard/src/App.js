@@ -10,6 +10,7 @@ import {
 import LoginForm from "./components/Login/LoginForm";
 import TemplateListView from "./components/TemplateListView/TemplateListView";
 import {CheckToken} from "./service/fetch-service";
+import RenderTemplateForm from "./components/RenderTemplate/RenderTemplateForm";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
               <div className="outer"><h1>Template Dashboard</h1>
                 <Route exact path="/" component={TemplateListView}/>
                 <Route path="/new" component={NewTemplateView}/>
+                <Route path="/render/:id" component={RenderTemplateForm}/>
               </div> : <LoginForm/>}
         </div>
       </AuthContext.Provider>

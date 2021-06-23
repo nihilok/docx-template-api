@@ -4,12 +4,14 @@ import {FetchWithToken} from "../../service/fetch-service";
 import './template-list.css'
 import TemplateSetup from "./TemplateSetup";
 import NewTemplateView from "../NewTemplateForm/NewTemplateView";
+import {Redirect, useHistory} from "react-router-dom";
 
 const TemplateListView = () => {
 
   const [templateListState, setTemplateListState] = useState(null)
   const [variablesState, setVariablesState] = useState(null)
   const {authState} = useContext(AuthContext)
+  let history = useHistory();
 
   const getTemplates = async () => {
     await FetchWithToken('/all-templates/', authState, setTemplateListState)
@@ -25,7 +27,7 @@ const TemplateListView = () => {
   }
 
   const handleUseTemplate = (id) => (e) => {
-
+    history.push(`/render/${id}`)
   }
 
   useEffect(() => {

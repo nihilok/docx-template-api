@@ -10,7 +10,6 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 from api.document_automation.constants import template_path
 
 
-
 class LetterVariable(BaseModel):
     var_name: str
     var_prompt: Optional[str] = None
@@ -24,6 +23,16 @@ class VariablesOut(BaseModel):
 class VariablesIn(BaseModel):
     letter_id: int
     variables: list[LetterVariable]
+
+
+class ResponseIn(BaseModel):
+    var_name: str
+    var_prompt: Optional[str] = None
+    response: str
+
+
+class ResponsesIn(BaseModel):
+    responses: list[ResponseIn]
 
 
 class Letter(Model):
@@ -52,7 +61,6 @@ class Letter(Model):
     def template_path(self):
         return template_path + str(self.premises_id) + '/'
 
+
 LetterPydantic = pydantic_model_creator(Letter, name='Letter', exclude=("template_file", "variables"))
 LetterPydanticIn = pydantic_model_creator(Letter, name='LetterIn', exclude_readonly=True)
-
-

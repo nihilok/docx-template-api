@@ -1,6 +1,29 @@
 import {useRef} from "react";
 
 
+export const FetchFile = async (url, authState, method, fileRef, body = null) => {
+  const headers = new Headers({
+    'Authorization': `Bearer ${authState.token}`
+  })
+  let fetchInit = {
+    headers,
+  }
+  if (body) {
+    fetchInit = parseBody(fetchInit, body, authState.token, method)
+  }
+
+  return await fetch(authState.apiBaseUrl + url, fetchInit).then((response) => {
+    if (response.status !== 200) {
+      throw new Error(`Bad response: ${response.status}`)
+    }
+    response.blob().then(data => {
+      const href = window.URL.createObjectURL(data);
+      const a = fileRef;
+      a.href = href;
+    })
+  }).catch(err => console.log(err))
+}
+
 export const CheckToken = async (authState, authDispatch, setIsLoading) => {
   let token = localStorage.getItem('token')
 
@@ -54,26 +77,29 @@ export const FetchAuth = async (
   })
 }
 
+export const parseBody = (fetchInit, body, token, method) => {
+  fetchInit.method = method
+  if (body instanceof FormData) {
+    fetchInit.body = body
+  } else {
+    fetchInit.headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    fetchInit.body = JSON.stringify(body)
+  }
+  return fetchInit
+}
+
 export const FetchWithToken = async (url, authState, setData = null, method = 'GET', body = null) => {
   const headers = new Headers({
     'Authorization': `Bearer ${authState.token}`
   })
   let fetchInit = {
     headers,
-    method
   }
   if (body) {
-    if (body instanceof FormData) {
-      fetchInit.body = body
-    } else {
-      // fetchInit.headers['Content-Type'] = 'application/json'
-      fetchInit.headers = new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authState.token}`
-      })
-      fetchInit.body = JSON.stringify(body)
-    }
-
+    fetchInit = parseBody(fetchInit, body, authState.token, method)
   }
 
 
