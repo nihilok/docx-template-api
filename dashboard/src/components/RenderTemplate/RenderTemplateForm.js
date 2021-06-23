@@ -38,8 +38,13 @@ const RenderTemplateForm = () => {
     console.log(body)
 
 
-    FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', downloadRef.current, setDownloadReady, body)
-
+    FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', body)
+        .then((data)=>{
+          const href = window.URL.createObjectURL(data);
+          const a = downloadRef.current;
+          a.download = `GeneratedReport-${variables.letter_id}-${new Date()}.docx`;
+          a.href = href;
+        }).catch(err=>console.log(err))
   }
 
   return (
@@ -60,7 +65,7 @@ const RenderTemplateForm = () => {
               ))
               : 'Nothing here, did you include variables e.g: {{variable}} in your template?'} {variables? <input type="submit"
                                                                                                        value="Render Report"/>: ''}
-          {downloadReady ? <a ref={downloadRef}>Download</a> : ''}
+            <a ref={downloadRef}>Download</a>
         </form>
         <div className="options-footer">
 

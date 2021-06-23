@@ -1,7 +1,7 @@
 import {useRef} from "react";
 
 
-export const FetchFile = async (url, authState, method, fileRef, setFileReady, body = null) => {
+export const FetchFile = async (url, authState, method, body = null) => {
   const headers = new Headers({
     'Authorization': `Bearer ${authState.token}`
   })
@@ -16,13 +16,8 @@ export const FetchFile = async (url, authState, method, fileRef, setFileReady, b
     if (response.status !== 200) {
       throw new Error(`Bad response: ${response.status}`)
     }
-    response.blob().then(data => {
-      setFileReady(true)
-      const href = window.URL.createObjectURL(data);
-      const a = fileRef;
-      a.href = href;
-    })
-  }).catch(err => console.log(err))
+    return response.blob()
+  })
 }
 
 export const CheckToken = async (authState, authDispatch, setIsLoading) => {
