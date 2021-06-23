@@ -50,13 +50,13 @@ async def update_template_file(letter_id: int, file: UploadFile = File(...),
 @router.get('/get-variables/', response_model=VariablesOut)
 async def get_variables(letter_id: int,
                         user: UserPydantic = Depends(get_current_active_user)):
-    defaults = {'time', 'year', 'month', 'day'}
     letter = await Letter.get(id=letter_id)
-    template = DocxTemplate(letter.filename)
-    template_variables = {v for v in template.undeclared_template_variables}.difference(defaults)
     if letter.variables:
         return VariablesOut(variables=pickle.loads(letter.variables),
                             letter_id=letter_id)
+    defaults = {'time', 'year', 'month', 'day'}
+    template = DocxTemplate(letter.filename)
+    template_variables = [v for v in template.undeclared_template_variables if v not in defaults]
     return VariablesOut(variables=[LetterVariable(var_name=variable)
                                    for variable in template_variables],
                         letter_id=letter_id)
