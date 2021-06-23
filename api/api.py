@@ -29,7 +29,7 @@ def custom_openapi():
         return app.openapi_schema
     openapi_schema = get_openapi(
         title="Clinical Reports API",
-        version="0.0.1",
+        version="2.5.0",
         description="API for generating clinical reports from templates.",
         routes=app.routes,
     )
