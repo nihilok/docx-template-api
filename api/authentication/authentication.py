@@ -14,7 +14,7 @@ from .constants import SECRET_KEY, ALGORITHM, GUEST_IDS, SUPER_USERS, ACCESS_TOK
 from ..db.models.users import User, UserPydantic, UserPydanticIn, PremisesPydanticIn, PremisesPydantic, Premises
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token/')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='msword/token/')
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 credentials_exception = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
