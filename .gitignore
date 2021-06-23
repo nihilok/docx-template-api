@@ -23,5 +23,7 @@
 /dashboard/yarn-error.log*
 
 */__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
 /venv/
 /letter_templates/
