@@ -29,8 +29,8 @@ def custom_openapi():
         return app.openapi_schema
     openapi_schema = get_openapi(
         title="Clinical Reports API",
-        version="2.5.0",
-        description="API for generating clinical reports from templates.",
+        version="0.0.1",
+        description="For generating clinical reports from templates.",
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {
