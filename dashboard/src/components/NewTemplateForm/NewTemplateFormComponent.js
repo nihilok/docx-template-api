@@ -26,7 +26,6 @@ const NewTemplateFormComponent = () => {
         .catch(error => {
           if (error.message === '422')
             setErrorMessage('A template with that name already exists.')
-            alert('hello')
         })
   }
 
