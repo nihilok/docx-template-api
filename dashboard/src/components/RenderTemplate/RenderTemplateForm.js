@@ -38,14 +38,29 @@ const RenderTemplateForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const d = new Date()
+    const dateString = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`
+
     const body = {
-      responses: variables.variables
+      responses: variables.variables,
+      local_time: dateString
     }
+
+    let checkResponse = false
+
+
+    body.responses.forEach(variable => {
+      if (!variable.response) {
+        variable.response = ''
+      } else {
+        checkResponse = true
+      }
+    })
 
     console.log(body)
 
-
-    FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', body)
+    if (checkResponse) {
+      FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', body)
         .then((data) => {
           const href = window.URL.createObjectURL(data);
           const a = downloadRef.current;
@@ -54,6 +69,10 @@ const RenderTemplateForm = () => {
           a.click()
           setDownloadReady(true)
         }).catch(err => console.log(err))
+    } else {
+      alert('Template is empty!')
+    }
+
   }
 
   return (
