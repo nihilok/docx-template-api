@@ -1,10 +1,10 @@
 import datetime
 import pickle
+from typing import Optional
 
 from docx import Document
 from fastapi import APIRouter, Depends, File, UploadFile, Form
-from docx.shared import Cm
-from docxtpl import DocxTemplate, InlineImage
+from docxtpl import DocxTemplate
 from fastapi.responses import FileResponse
 from .constants import template_path
 from ..authentication import get_current_active_user
@@ -12,6 +12,7 @@ from ..db.models import Letter, LetterPydantic, LetterVariable, VariablesOut, Va
 from ..db.models.users import UserPydantic, User
 
 router = APIRouter()
+
 
 @router.get('/all-templates/', response_model=list[LetterPydantic])
 async def get_templates(user: UserPydantic = Depends(get_current_active_user)):
@@ -58,7 +59,7 @@ async def get_full_text(filename) -> str:
 async def sort_vars(check_text, template_variables) -> list:
     ordered_vars = []
     for word in check_text.split(' '):
-        if word[2:-2] in template_variables:
+        if word[2:-2] in template_variables and word[2:-2] not in ordered_vars:
             ordered_vars.append(word[2:-2])
     return ordered_vars
 
@@ -94,14 +95,19 @@ async def set_variables(variables: VariablesIn,
 @router.post('/render-template/')
 async def render_template(letter_id: int,
                           responses: ResponsesIn,
-                          user: UserPydantic = Depends(get_current_active_user)):
+                          user: UserPydantic = Depends(get_current_active_user),
+                          local_time: Optional[str] = None):
     letter = await Letter.get(id=letter_id)
     template = DocxTemplate(letter.filename)
+    if local_time:
+        local_time = datetime.datetime.strptime(local_time, '%Y-%b-%d %H:%M')
+    else:
+        local_time = datetime.datetime.now()
     context = {
-        'day': datetime.datetime.now().strftime('%d'),
-        'month': datetime.datetime.now().strftime('%b'),
-        'year': datetime.datetime.now().strftime('%Y'),
-        'time': datetime.datetime.now().strftime('%H:%M'),
+        'day': local_time.strftime('%d'),
+        'month': local_time.strftime('%b'),
+        'year': local_time.strftime('%Y'),
+        'time': local_time.strftime('%H:%M')
     }
     for r in responses.responses:
         context[r.var_name] = r.response
@@ -111,8 +117,3 @@ async def render_template(letter_id: int,
                 f"{context['year']}-{context['month']}-{context['day']} - {context['time']}" + '.docx')
     template.save(new_path)
     return FileResponse(new_path)
-
-
-"""This is a paragraph that you can add blank lines to if you want to create a second paragraph. The formatting with be the same as the variable in the template.
-
-Here, for example I have created a new paragraph, within the same paragraph variable."""
