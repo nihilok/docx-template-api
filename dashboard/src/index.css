@@ -19,6 +19,8 @@ code {
 }
 
 input, textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   border-radius: 5px;
   padding: .5rem;
   font-family: inherit;
