@@ -11,8 +11,8 @@ const NewTemplateView = ({getTemplates}) => {
         <NewTemplateFormComponent getTemplates={getTemplates}/>
         {showHelp ?
             <div style={{margin: '1rem 0 0 0'}} className="container help"><small>Templates should be in the form of a .docx file, formatted as you
-              would like the final document to be. Variables with distinct names should be declared between
-              double {'{{}}'}</small>
+              would like the final document to be. Variables should be declared with distinct names between
+              double {'{{}}'} without spaces or punctuation (underscore is fine).</small>
               <p>e.g: <code>My name is {'{{name}}'} and I'm {'{{age}}'} years old.</code></p>
               <small>To specify that a variable should represent 1 or more paragraphs you should prefix the variable
                 with

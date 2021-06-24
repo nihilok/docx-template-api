@@ -1,9 +1,11 @@
 import datetime
+import os
 import pickle
 from typing import Optional
 
+from jinja2.exceptions import TemplateSyntaxError
 from docx import Document
-from fastapi import APIRouter, Depends, File, UploadFile, Form
+from fastapi import APIRouter, Depends, File, UploadFile, Form, HTTPException
 from docxtpl import DocxTemplate
 from fastapi.responses import FileResponse
 from .constants import template_path
@@ -73,13 +75,17 @@ async def get_variables(letter_id: int,
         return VariablesOut(variables=pickle.loads(letter.variables),
                             letter_id=letter_id)
     defaults = {'time', 'year', 'month', 'day'}
-    template = DocxTemplate(letter.filename)
-    check_text = await get_full_text(letter.filename)
-    template_variables = [v for v in template.undeclared_template_variables if v not in defaults]
-    ordered_vars = await sort_vars(check_text, template_variables)
-    return VariablesOut(variables=[LetterVariable(var_name=variable)
-                                   for variable in ordered_vars],
-                        letter_id=letter_id)
+    try:
+        template = DocxTemplate(letter.filename)
+        check_text = await get_full_text(letter.filename)
+        template_variables = [v for v in template.undeclared_template_variables if v not in defaults]
+        ordered_vars = await sort_vars(check_text, template_variables)
+        return VariablesOut(variables=[LetterVariable(var_name=variable)
+                                       for variable in ordered_vars],
+                            letter_id=letter_id)
+    except TemplateSyntaxError as e:
+        await letter.delete()
+        raise HTTPException(status_code=400, detail=f"Template formatted incorrectly: {e}")
 
 
 @router.put('/set-variables/')

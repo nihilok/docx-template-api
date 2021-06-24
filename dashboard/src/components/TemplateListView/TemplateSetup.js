@@ -71,7 +71,7 @@ const TemplateSetup = () => {
 
   return (
       <>
-        <h2>Set variable prompts:</h2>
+        <h2>Set Prompts:</h2>
         <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank,
           the displayed variable name will be used as prompt.</small>
         {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
