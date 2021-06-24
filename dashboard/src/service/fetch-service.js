@@ -82,6 +82,9 @@ export const FetchAuth = async (
       })
       .then((response) => {
         if (response.status !== 200) {
+          if (400 <= response.status <= 422) {
+            throw new Error(`Incorrect login details`)
+          }
           throw new Error(`Bad response: ${response.status}`)
         }
         response.json().then(data => {
@@ -89,7 +92,7 @@ export const FetchAuth = async (
             type: 'LOGIN',
             payload: data
           })
-        }).catch(err => console.log(err))
+        })
       })
 }
 

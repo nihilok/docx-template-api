@@ -45,6 +45,10 @@ p, small {
   border-color: var(--bg-danger);
 }
 
+.text-danger {
+  color: firebrick;
+}
+
 .bg-success {
   background-color: var(--bg-success);
   border-color: var(--bg-success);
@@ -93,6 +97,9 @@ p, small {
 
 .my-3 {
   margin: 3rem 0;
+}
+.my-2 {
+  margin: 2rem 0;
 }
 
 .outer {

@@ -31,10 +31,11 @@ const Login = () => {
     let formData = new FormData(form.current)
     FetchAuth(authState, authDispatch, formData)
         .catch(error => {
+          console.log(error)
           setData({
             ...data,
             isSubmitting: false,
-            errorMessage: error.message || error.statusText
+            errorMessage: error.message || error.statusText || error
           });
         });
   };
@@ -48,14 +49,15 @@ const Login = () => {
                                                              placeholder="Username"
                                                              value={data.username}
                                                              onChange={handleInputChange}
-                                                             className=""/></div>
+                                                             required/></div>
           <div className="form-control">
             <label htmlFor="password">Password</label><input name="password" type="password" placeholder="Password"
                                                              value={data.password}
                                                              onChange={handleInputChange}
-                                                             className=""/></div>
+                                                             required/></div>
+          <div className={data.errorMessage ? "my-3 text-danger" : ""}>{data.errorMessage}</div>
           <input type="submit" value="Sign In"
-                 className="btn"/>
+                 className={data.errorMessage ? "bg-success" : "my-2 bg-success"}/>
 
 
           {data.isSubmitting ? <Loader/> : ''}
