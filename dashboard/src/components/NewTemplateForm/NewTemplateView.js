@@ -7,7 +7,7 @@ const NewTemplateView = ({getTemplates}) => {
 
   return (
       <>
-        <h3>Upload Template</h3>
+        <h2>Upload Template</h2>
         <NewTemplateFormComponent getTemplates={getTemplates}/>
         {showHelp ?
             <div style={{margin: '1rem 0 0 0'}} className="container help"><small>Templates should be in the form of a .docx file, formatted as you

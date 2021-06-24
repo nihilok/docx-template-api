@@ -13,7 +13,11 @@
 }
 
 .template-link {
-    cursor: pointer
+    cursor: pointer;
+    flex-grow: 0;
+    width: auto;
+    padding: 0 1rem;
+    display: flex;
 }
 
 .template-link:hover {

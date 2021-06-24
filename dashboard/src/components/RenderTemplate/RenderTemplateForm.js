@@ -76,7 +76,7 @@ const RenderTemplateForm = () => {
 
   return (
       <div className="container">
-        <h3>New Report:</h3>
+        <h2>New Report:</h2>
         <form onSubmit={handleSubmit} className={"form-group"}>
           {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
               variables ? variables.variables.map((variable, index) => (

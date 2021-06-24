@@ -1,51 +1,168 @@
 :root {
-  --modal-background: #d4d995;
-  --bg-danger: #ff9c9c;
-  --bg-success: #86cd86;
+    --primary-color: hsl(64, 47%, 50%);
+    --primary-dark: hsl(64, 47%, 30%);
+    --modal-background: hsl(64, 47%, 72%);
+    --link-text: hsl(64, 47%, 30%);
+    --bg-danger: #ff9c9c;
+    --bg-success: #86cd86;
+    --focus-box: 0 0 0 5px var(--primary-color);
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+    margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+button,
+input,
+optgroup,
+select,
+textarea, html input[type="button"],
+input[type="reset"],
+input[type="submit"], button[disabled],
+html input[disabled], button::-moz-focus-inner,
+input::-moz-focus-inner, input[type="checkbox"],
+input[type="radio"], input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button, input[type="search"], input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: var(--focus-box);
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 input, textarea, select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: 5px;
-  padding: .5rem;
-  font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 5px;
+    padding: .5rem;
+    font-family: inherit;
+    border-width: 1px;
 }
 
 textarea {
-  font-size: .9em
+    font-size: .9em
 }
 
 input[type="submit"], input[type="button"] {
-  min-width: 5rem;
-  cursor: pointer;
+    min-width: 5rem;
+    cursor: pointer;
+    background-color: #eee;
 }
 
 a {
-  text-decoration: none;
-  color: #4c4c4c !important;
-  cursor: pointer;
+    text-decoration: none;
+    color: var(--link-text) !important;
+    cursor: pointer;
+    width: auto;
 }
 
 a:hover, a:focus {
-  text-decoration: underline;
-  color: #000 !important;
+    outline: none;
+    text-decoration: underline;
+    color: var(--primary-color) !important;
+    border-radius: 5px;
+}
+
+a:focus {
+    box-shadow: var(--focus-box);
 }
 
 a:visited {
-  color: inherit;
+    color: inherit;
 }

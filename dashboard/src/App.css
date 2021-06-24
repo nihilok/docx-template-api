@@ -2,7 +2,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 10rem 2rem 2rem 2rem;
 }
 
 /*.full-page-component {*/
@@ -42,8 +42,8 @@ p, small {
 }
 
 .bg-danger {
-  background-color: var(--bg-danger);
-  border-color: var(--bg-danger);
+  background-color: var(--bg-danger)  !important;
+  border-color: var(--bg-danger)  !important;
 }
 
 .text-danger {
@@ -51,8 +51,8 @@ p, small {
 }
 
 .bg-success {
-  background-color: var(--bg-success);
-  border-color: var(--bg-success);
+  background-color: var(--bg-success) !important;
+  border-color: var(--bg-success) !important;
 }
 
 .form-group {
@@ -63,7 +63,7 @@ p, small {
   align-items: center;
   width: 100%;
   max-width: 90vw;
-  margin: auto;
+  margin: 1rem auto 0 auto;
 }
 
 .form-control {
@@ -86,12 +86,6 @@ p, small {
   grid-template-columns: 1fr;
 }
 
-@media (max-width: 768px) {
-  .form-control {
-    grid-template-columns: 1fr;
-    width: 80vw;
-  }
-}
 
 .form-control label {
   text-align: left;
@@ -116,4 +110,45 @@ p, small {
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+
+.full-width {
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .form-control {
+    grid-template-columns: 1fr;
+    width: 80vw;
+  }
+  .form-control .options-footer {
+    padding: 0 2rem;
+  }
+
+  .App {
+    padding-top: 7rem;
+  }
+}
+
+/*@media (max-width: 390px) {*/
+/*  .form-control .options-footer, .options-footer {*/
+/*    padding: 0;*/
+/*  }*/
+/*}*/
+
+@media (max-width: 450px) {
+  :root {
+    font-size: calc(4vmin - 2px);
+  }
+}
+
+.App h1 {
+  background-color: var(--modal-background);
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  line-height: 1.1;
+  box-shadow: 0 2px 5px var(--primary-dark);
 }

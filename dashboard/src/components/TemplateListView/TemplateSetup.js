@@ -71,7 +71,7 @@ const TemplateSetup = () => {
 
   return (
       <>
-        <h3>Set variable prompts:</h3>
+        <h2>Set variable prompts:</h2>
         <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank,
           the displayed variable name will be used as prompt.</small>
         {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
@@ -89,12 +89,12 @@ const TemplateSetup = () => {
                     template?</div>}
             </form>}
 
-        <div className={!isLoading ? "options-footer" : ''}>
-          <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
+          <div className={!isLoading ? "options-footer full-width" : 'my-3'}>
+            <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
 
-          {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}
-          {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
-        </div>
+            {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}
+            {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
+          </div>
         <div>
           <a ref={downloadRef}>{!isLoading ? "Download Original Template" : ''}</a></div>
 
