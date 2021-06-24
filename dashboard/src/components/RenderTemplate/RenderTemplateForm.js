@@ -111,7 +111,7 @@ const RenderTemplateForm = () => {
 
             </div>
           </div>
-          <div className="form-control"><div/><a style={{marginTop: '1rem'}}
+          <div className={downloadReady ? "form-control" : ''}><div/><a style={{marginTop: '1rem'}}
                 ref={downloadRef}>{downloadReady ? 'Download Report Again' : ''}</a></div>
         </form>
       </div>
