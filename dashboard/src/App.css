@@ -151,3 +151,7 @@ p, small {
   line-height: 1.1;
   box-shadow: 0 .1rem .2rem var(--primary-dark);
 }
+
+.list-outer .template-list-row:nth-child(1) {
+  margin-top: 2rem;
+}

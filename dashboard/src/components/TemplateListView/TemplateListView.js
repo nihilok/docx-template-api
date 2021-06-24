@@ -45,7 +45,7 @@ const TemplateListView = () => {
         {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
             variablesState ? <Redirect to={`setup/${variablesState.letter_id}`}/> :
                 templateListState && templateListState.length ?
-                    <>
+                    <div className="list-outer">
                       {templateListState.map(template => {
                         return (
                             <div className="template-list-row" key={template.id}>
@@ -56,7 +56,7 @@ const TemplateListView = () => {
                         )
                       })}
 
-                    </>
+                    </div>
                     : <Redirect to={'/new'}/>}
         <div className="options-footer full-width"><Link to="/new">Upload new template</Link>
                         <Link to="/logout" className="text-danger">Logout</Link></div>
