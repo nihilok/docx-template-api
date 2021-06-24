@@ -8,8 +8,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="285.75mm"
-   height="42.333332mm"
-   viewBox="0 0 285.75 42.333332"
+   height="322.79166mm"
+   viewBox="0 0 285.75 322.79166"
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
@@ -40,7 +40,7 @@
      inkscape:window-y="0"
      inkscape:window-maximized="0">
     <sodipodi:guide
-       position="117.17261,-412.74999"
+       position="117.17261,-132.29167"
        orientation="0,-1"
        id="guide1422" />
     <inkscape:grid
@@ -77,30 +77,30 @@
     <path
        id="rect1442"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:37.478;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="M 0 0 L 0 160 L 0 1220 L 1080 1220 L 1080 160 L 1080 80 L 1000 0 L 0 0 z "
+       d="M 0,0 V 160 1220 H 1080 V 160 80 L 1000,0 Z"
        transform="matrix(0.26458333,0,0,0.26458333,-10.583333,-232.83333)"
-       inkscape:export-filename="/home/mj/Freelance/report.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-filename="/home/mj/Freelance/ms-word-automation/dashboard/public/logo192.png"
+       inkscape:export-xdpi="15.108196"
+       inkscape:export-ydpi="15.108196" />
     <path
        id="path1456"
        style="fill:#1a1a1a;fill-opacity:0.339705;stroke:none;stroke-width:9.91605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        d="m 253.42742,-232.83333 v 21.73924 h 21.73924 l -0.003,-0.002 v -0.57098 l -0.57153,-5.3e-4 -20.59203,-20.59203 v -0.57206 l -0.57102,0.001 z"
-       inkscape:export-filename="/home/mj/Freelance/report.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-filename="/home/mj/Freelance/ms-word-automation/dashboard/public/logo192.png"
+       inkscape:export-xdpi="15.108196"
+       inkscape:export-ydpi="15.108196" />
     <path
        id="path1444"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.12611;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        d="M 275.16667,-211.66667 254,-232.83333 v 21.16666 z"
-       inkscape:export-filename="/home/mj/Freelance/report.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-filename="/home/mj/Freelance/ms-word-automation/dashboard/public/logo192.png"
+       inkscape:export-xdpi="15.108196"
+       inkscape:export-ydpi="15.108196" />
     <g
        id="g2049"
-       inkscape:export-filename="/home/mj/Freelance/report.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
+       inkscape:export-filename="/home/mj/Freelance/ms-word-automation/dashboard/public/logo192.png"
+       inkscape:export-xdpi="15.108196"
+       inkscape:export-ydpi="15.108196">
       <rect
          style="fill:#333333;stroke:none;stroke-width:0.264583;paint-order:markers fill stroke;stop-color:#000000"
          id="rect2029"
@@ -126,9 +126,9 @@
     <g
        id="g2044"
        transform="translate(84.666668)"
-       inkscape:export-filename="/home/mj/Freelance/report.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
+       inkscape:export-filename="/home/mj/Freelance/ms-word-automation/dashboard/public/logo192.png"
+       inkscape:export-xdpi="15.108196"
+       inkscape:export-ydpi="15.108196">
       <rect
          style="fill:#333333;stroke:none;stroke-width:0.264583;paint-order:markers fill stroke;stop-color:#000000"
          id="rect2035"

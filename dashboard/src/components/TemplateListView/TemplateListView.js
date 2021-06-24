@@ -50,8 +50,8 @@ const TemplateListView = () => {
                         return (
                             <div className="template-list-row" key={template.id}>
                               <div className="template-name">{template.name}</div>
-                              <div className="template-link" onClick={handleOptions(template.id)}>Edit</div>
-                              <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
+                              <Link to={`setup/${template.id}`} className="template-link">Edit</Link>
+                              <Link to={`render/${template.id}`} className="template-link">Use Template</Link>
                             </div>
                         )
                       })}
