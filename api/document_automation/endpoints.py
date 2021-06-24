@@ -117,3 +117,9 @@ async def render_template(letter_id: int,
                 f"{context['year']}-{context['month']}-{context['day']} - {context['time']}" + '.docx')
     template.save(new_path)
     return FileResponse(new_path)
+
+
+@router.get('/fetch-template/')
+async def fetch_template(letter_id: int):
+    letter = await Letter.get(id=letter_id)
+    return FileResponse(letter.filename)

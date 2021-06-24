@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {FetchWithToken} from "../../service/fetch-service";
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {FetchFile, FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
 import {useHistory, useParams} from "react-router-dom";
 import DialogueOkCancel from "../Modals/DialogueOkCancel";
@@ -12,6 +12,7 @@ const TemplateSetup = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [variableListState, setVariableListState] = useState(null)
   const [deleting, setDeleting] = useState(false)
+  const downloadRef = useRef(null)
   const {authState} = useContext(AuthContext)
   let history = useHistory();
 
@@ -21,6 +22,13 @@ const TemplateSetup = () => {
         .then((data) => setVariableListState(data.variables))
         .catch((err) => console.log(err))
         .finally(() => setTimeout(() => setIsLoading(false), loadingDelay))
+    FetchFile(`/fetch-template/?letter_id=${letter_id.id}`, authState)
+        .then((data) => {
+          const href = window.URL.createObjectURL(data);
+          const a = downloadRef.current;
+          a.download = `Template-${letter_id.id}.docx`;
+          a.href = href;
+        }).catch(err => console.log(err))
   }, [])
 
   const handleChange = index => (event) => {
@@ -80,6 +88,7 @@ const TemplateSetup = () => {
                   <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your
                     template?</div>}
             </form>}
+
         <div className={!isLoading ? "form-control" : 'my-3'}>
           <div/>
           <div className={!isLoading ? "options-footer" : ''}>
@@ -89,6 +98,10 @@ const TemplateSetup = () => {
             {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
           </div>
         </div>
+        <div className="form-control">
+          <div/>
+          <a ref={downloadRef}>{!isLoading ? "Download Original Template" : ''}</a></div>
+
         {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id.id)}
                                       cancel={() => setDeleting(false)}/> : ''}
       </>
