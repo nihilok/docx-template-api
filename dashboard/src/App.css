@@ -20,7 +20,7 @@
 }
 
 p, small {
-  max-width: 70ch;
+  width: clamp(30ch, 70ch, 80vw);
   margin: 1rem auto;
 }
 
