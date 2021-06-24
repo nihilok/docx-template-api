@@ -21,6 +21,10 @@ input, textarea, select {
   padding: .5rem;
 }
 
+input[type="submit"], input[type="button"] {
+  min-width: 5rem;
+}
+
 a {
   text-decoration: none;
   color: #4c4c4c !important;
