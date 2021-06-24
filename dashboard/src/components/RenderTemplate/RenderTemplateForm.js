@@ -99,9 +99,9 @@ const RenderTemplateForm = () => {
                       </div>
                   ))
                   : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
-          <div className={!isLoading ? "form-control" : ''}>
+          <div className={!isLoading ? "form-control" : 'my-3'}>
             <div/>
-            <div className="options-footer">
+            <div className={!isLoading ? "options-footer" : ''}>
 
               <input type="button" value="Cancel" onClick={() => {
                 history.push('/')
