@@ -3,15 +3,20 @@ import {FetchFile, FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
 import {useHistory} from "react-router-dom";
 import {useParams} from 'react-router-dom';
+import Loader from "../Loaders/Loader";
 
 
 const RenderTemplateForm = () => {
 
   const letter_id = useParams()
+  const [isLoading, setIsLoading] = useState(true)
+
   const [variables, setVariables] = useState(null)
   useEffect(() => {
     FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
         .then(data => setVariables(data))
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false))
   }, [])
 
   const {authState} = useContext(AuthContext)
@@ -68,7 +73,7 @@ const RenderTemplateForm = () => {
                                onChange={handleChange(index)}/>}
                   </div>
               ))
-              : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
+              : isLoading ? <Loader /> : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
 
           <div className="options-footer"><input type="button" value="Back" onClick={() => {
             history.push('/')

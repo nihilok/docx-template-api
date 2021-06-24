@@ -3,20 +3,23 @@ import {FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
 import {useHistory, useParams} from "react-router-dom";
 import DialogueOkCancel from "../Modals/DialogueOkCancel";
+import Loader from "../Loaders/Loader";
 
 const TemplateSetup = () => {
 
   const letter_id = useParams()
-  const [fetchData, setFetchData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [variableListState, setVariableListState] = useState(null)
   const [deleting, setDeleting] = useState(false)
   const {authState} = useContext(AuthContext)
   let history = useHistory();
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log()
     FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
-        .then((data)=>setVariableListState(data.variables))
+        .then((data) => setVariableListState(data.variables))
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false))
   }, [])
 
   const handleChange = index => (event) => {
@@ -41,7 +44,7 @@ const TemplateSetup = () => {
   }
 
   const handleCancel = () => {
-      history.push('/')
+    history.push('/')
   }
 
   const handleDelete = (e) => {
@@ -60,17 +63,20 @@ const TemplateSetup = () => {
   return (
       <>
         <h3>Set variable prompts:</h3>
-        <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank, the displayed variable name will be used as prompt.</small>
+        <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank,
+          the displayed variable name will be used as prompt.</small>
         <form onSubmit={handleSubmit} className="form-group">
           {variableListState && variableListState.length ? variableListState.map((variable, index) => (
                   <div className="form-control" key={variable.var_name}>
                     <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
-                      <input type="text" name={variable.var_name}
-                             value={variable.var_prompt || ''}
-                             onChange={handleChange(index)}/>
+                    <input type="text" name={variable.var_name}
+                           value={variable.var_prompt || ''}
+                           onChange={handleChange(index)}/>
                   </div>
               ))
-              : <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your template?</div> }
+              : isLoading ? <Loader/> :
+                  <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your
+                    template?</div>}
         </form>
         <div className="options-footer">
           <input type="submit" onClick={handleCancel} value="Cancel"/>

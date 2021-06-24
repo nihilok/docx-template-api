@@ -1,4 +1,5 @@
 import React from 'react';
+import './loaders.css'
 
 export const RippleLoader = ({classname='Loader'}) => {
   return (

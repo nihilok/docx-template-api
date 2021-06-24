@@ -4,22 +4,27 @@ import {FetchWithToken} from "../../service/fetch-service";
 import './template-list.css'
 import NewTemplateView from "../NewTemplateForm/NewTemplateView";
 import {Link, Redirect, useHistory} from "react-router-dom";
+import Loader from "../Loaders/Loader";
 
 
 const TemplateListView = () => {
 
+  const [isLoading, setIsLoading] = useState(true)
   const [templateListState, setTemplateListState] = useState(null)
   const [variablesState, setVariablesState] = useState(null)
   const {authState} = useContext(AuthContext)
   let history = useHistory();
 
   const getTemplates = async () => {
-    await FetchWithToken('/all-templates/', authState).then(data => setTemplateListState(data))
+    await FetchWithToken('/all-templates/', authState)
+        .then(data => setTemplateListState(data))
+        .catch(err => console.log(err))
+        .finally(() => setIsLoading(false))
   }
 
-  const getVariables = async (id) => {
-    await FetchWithToken(`/get-variables/?letter_id=${id}`, authState)
-  }
+  // const getVariables = async (id) => {
+  //   await FetchWithToken(`/get-variables/?letter_id=${id}`, authState)
+  // }
 
   const handleOptions = (id) => (e) => {
     history.push(`/setup/${id}`)
@@ -50,7 +55,7 @@ const TemplateListView = () => {
                 })}
                 <div className="options-footer"><Link to="/new">Upload new template</Link>
                   <Link to="/logout">Logout</Link></div>
-              </div> : <NewTemplateView getTemplates={getTemplates}/>
+              </div> : isLoading ? <Loader /> : <NewTemplateView getTemplates={getTemplates}/>
 
 );
 };
