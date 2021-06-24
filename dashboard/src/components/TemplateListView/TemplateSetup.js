@@ -80,9 +80,9 @@ const TemplateSetup = () => {
                   <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your
                     template?</div>}
             </form>}
-        <div className="form-control">
+        <div className={!isLoading ? "form-control" : 'my-3'}>
           <div/>
-          <div className="options-footer">
+          <div className={!isLoading ? "options-footer" : ''}>
             <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
 
             {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}

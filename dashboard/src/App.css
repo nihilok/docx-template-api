@@ -46,7 +46,7 @@ p, small {
 }
 
 .text-danger {
-  color: firebrick;
+  color: firebrick !important;
 }
 
 .bg-success {

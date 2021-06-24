@@ -20,8 +20,8 @@ const NewTemplateView = ({getTemplates}) => {
               <small>Variables prefixed with "time_" will render a time input in the form.</small>
             <p>e.g: <code>{'{{time_of_appointment}}'}</code></p>
             </div> : ''}
-        <div className="form-group" style={{margin: '1rem'}}><input type="submit" onClick={() => setShowHelp(!showHelp)}
-                                                                    value={showHelp ? 'Hide Help' : 'Show Help'}/></div>
+        <div className="form-group" style={{margin: '1rem'}}><a type="submit" onClick={() => setShowHelp(!showHelp)}
+                                                                    >{showHelp ? 'Hide Help' : 'Show Help'}</a></div>
       </>
   );
 }

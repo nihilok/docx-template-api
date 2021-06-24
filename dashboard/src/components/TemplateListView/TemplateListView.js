@@ -59,7 +59,7 @@ const TemplateListView = () => {
                     </>
                     : <Redirect to={'/new'}/>}
         <div className="options-footer"><Link to="/new">Upload new template</Link>
-                        <Link to="/logout">Logout</Link></div>
+                        <Link to="/logout" className="text-danger">Logout</Link></div>
       </div>
 
   );
