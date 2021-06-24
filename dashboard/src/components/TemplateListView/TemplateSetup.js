@@ -4,6 +4,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {useHistory, useParams} from "react-router-dom";
 import DialogueOkCancel from "../Modals/DialogueOkCancel";
 import Loader from "../Loaders/Loader";
+import {loadingDelay} from "../../service/constants";
 
 const TemplateSetup = () => {
 
@@ -19,7 +20,7 @@ const TemplateSetup = () => {
     FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
         .then((data) => setVariableListState(data.variables))
         .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false))
+        .finally(() => setTimeout(() => setIsLoading(false), loadingDelay))
   }, [])
 
   const handleChange = index => (event) => {
@@ -65,23 +66,24 @@ const TemplateSetup = () => {
         <h3>Set variable prompts:</h3>
         <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank,
           the displayed variable name will be used as prompt.</small>
-        <form onSubmit={handleSubmit} className="form-group">
-          {variableListState && variableListState.length ? variableListState.map((variable, index) => (
-                  <div className="form-control" key={variable.var_name}>
-                    <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
-                    <input type="text" name={variable.var_name}
-                           value={variable.var_prompt || ''}
-                           onChange={handleChange(index)}/>
-                  </div>
-              ))
-              : isLoading ? <Loader/> :
+        {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
+            <form onSubmit={handleSubmit} className="form-group">
+              {variableListState && variableListState.length ? variableListState.map((variable, index) => (
+                      <div className="form-control" key={variable.var_name}>
+                        <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
+                        <input type="text" name={variable.var_name}
+                               value={variable.var_prompt || ''}
+                               onChange={handleChange(index)}/>
+                      </div>
+                  ))
+                  :
                   <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your
                     template?</div>}
-        </form>
+            </form>}
         <div className="options-footer">
           <input type="submit" onClick={handleCancel} value="Cancel"/>
-          <input type="submit" value="Save" onClick={handleSubmit}/>
-          <input type="submit" onClick={handleDelete} value="Delete"/></div>
+          {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit}/> : ''}
+          {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete"/> : ''}</div>
         {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id.id)}
                                       cancel={() => setDeleting(false)}/> : ''}
       </>

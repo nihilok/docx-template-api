@@ -151,9 +151,14 @@
 }
 
 .Loader-trans {
-    margin-top: -7rem;
+    /*margin-top: -7rem;*/
     animation: none;
     background-color: rgba(0, 0, 0, 0);
+}
+
+.Loader-black .lds-ring div {
+    border: 8px solid #000;
+    border-color: #000 transparent transparent transparent;
 }
 
 .Loader-block {

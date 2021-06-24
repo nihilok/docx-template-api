@@ -38,12 +38,12 @@ const NewTemplateFormComponent = () => {
 
           <form className="form-group" onSubmit={onSubmit} ref={formRef}>
             <div className="form-control">
-              <label htmlFor="templateName">Template Name: </label><input type="text" id="templateName" required
-                                                                          onChange={handleChange} value={nameState}/>
-            </div>
-            <div className="form-control">
               <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile"
                                                                           onInput={handleInput} required/>
+            </div>
+            <div className="form-control">
+              <label htmlFor="templateName">Template Name: </label><input type="text" id="templateName" required
+                                                                          onChange={handleChange} value={nameState}/>
             </div>
             <div className="options-footer"><input type="submit" value="Upload"/><input type="button" value="Back"
                                                                                         onClick={() => {

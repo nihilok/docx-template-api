@@ -10,7 +10,7 @@ const NewTemplateView = ({getTemplates}) => {
         <h3>Upload Template</h3>
         <NewTemplateFormComponent getTemplates={getTemplates}/>
         {showHelp ?
-            <div style={{margin: '1rem 0 0 0'}} className="container"><small>Templates should be in the form of a .docx file, formatted as you
+            <div style={{margin: '1rem 0 0 0'}} className="container help"><small>Templates should be in the form of a .docx file, formatted as you
               would like the final document to be. Variables with distinct names should be declared between
               double {'{{}}'}</small>
               <p>e.g: <code>{'{{variable}}'}</code></p>
