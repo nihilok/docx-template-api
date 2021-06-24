@@ -17,6 +17,7 @@
     padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 0 12px 3px black;
+    width: clamp(30ch, 70ch, 70vw)
 }
 
 .modal-footer {

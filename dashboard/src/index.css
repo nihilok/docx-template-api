@@ -1,5 +1,7 @@
 :root {
-  --modal-background: #d4d995
+  --modal-background: #d4d995;
+  --bg-danger: #ff9c9c;
+  --bg-success: #86cd86;
 }
 
 body {
@@ -23,6 +25,7 @@ input, textarea, select {
 
 input[type="submit"], input[type="button"] {
   min-width: 5rem;
+  cursor: pointer;
 }
 
 a {

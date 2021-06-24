@@ -40,6 +40,16 @@ p, small {
   }
 }
 
+.bg-danger {
+  background-color: var(--bg-danger);
+  border-color: var(--bg-danger);
+}
+
+.bg-success {
+  background-color: var(--bg-success);
+  border-color: var(--bg-success);
+}
+
 .form-group {
   min-height: 100%;
   display: flex;
@@ -86,4 +96,11 @@ p, small {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.options-footer {
+    margin: 1rem auto;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }

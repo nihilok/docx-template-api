@@ -80,10 +80,15 @@ const TemplateSetup = () => {
                   <div style={{margin: '5rem 0'}}>Nothing here, did you include variables e.g: {"{{variable}}"} in your
                     template?</div>}
             </form>}
-        <div className="options-footer">
-          <input type="submit" onClick={handleCancel} value="Cancel"/>
-          {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit}/> : ''}
-          {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete"/> : ''}</div>
+        <div className="form-control">
+          <div/>
+          <div className="options-footer">
+            <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
+
+            {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}
+            {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
+          </div>
+        </div>
         {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id.id)}
                                       cancel={() => setDeleting(false)}/> : ''}
       </>

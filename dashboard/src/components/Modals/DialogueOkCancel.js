@@ -12,7 +12,7 @@ const DialogueOkCancel = ({callback, cancel, title="Are you sure?", message=null
             {message}
           </div> : ''}
           <div className="modal-footer">
-            <input type="submit" value="Cancel" onClick={cancel}/><input type="submit" value="OK" onClick={callback}/>
+            <input type="submit" value="Cancel" onClick={cancel} className={"bg-success"}/><input type="submit" value="OK" onClick={callback} className={"bg-danger"}/>
           </div>
         </div>
       </div>

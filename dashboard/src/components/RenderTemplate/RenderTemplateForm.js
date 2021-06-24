@@ -75,17 +75,24 @@ const RenderTemplateForm = () => {
                                 <input type="time" name={variable.var_name}
                                        value={variable.response || ''}
                                        onChange={handleChange(index)}/> :
-                        <input type="text" name={variable.var_name}
-                               value={variable.response || ''}
-                               onChange={handleChange(index)}/>}
+                                <input type="text" name={variable.var_name}
+                                       value={variable.response || ''}
+                                       onChange={handleChange(index)}/>}
                       </div>
                   ))
                   : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
+          <div className={!isLoading ? "form-control" : ''}>
+            <div/>
+            <div className="options-footer">
 
-          <div className="options-footer"><input type="button" value="Back" onClick={() => {
-            history.push('/')
-          }}/>{!isLoading ? <input type="submit"
-                                   value="Render Report"/> : ''}</div>
+              <input type="button" value="Cancel" onClick={() => {
+                history.push('/')
+              }} className={!isLoading ? "bg-danger" : ''}/>
+              {!isLoading ? <input type="submit"
+                                   value="Render Report" className={"bg-success"}/> : ''}
+
+            </div>
+          </div>
           <a style={{marginTop: '1rem'}}
              ref={downloadRef}>{downloadReady ? 'Download Report Again' : ''}</a>
         </form>
