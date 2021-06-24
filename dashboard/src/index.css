@@ -21,6 +21,11 @@ code {
 input, textarea, select {
   border-radius: 5px;
   padding: .5rem;
+  font-family: inherit;
+}
+
+textarea {
+  font-size: .9em
 }
 
 input[type="submit"], input[type="button"] {
