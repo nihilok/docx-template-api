@@ -11,6 +11,7 @@ const NewTemplateFormComponent = () => {
   const [fileState, setFileState] = useState(null)
   const [nameState, setNameState] = useState('')
   const [variablesState, setVariablesState] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
   let history = useHistory();
 
 
@@ -22,6 +23,11 @@ const NewTemplateFormComponent = () => {
     formData.append('file', fileState, fileState.name)
     FetchWithToken('/create-template/', authState, 'POST', formData)
         .then(data => setVariablesState(data))
+        .catch(error => {
+          if (error.message === '422')
+            setErrorMessage('A template with that name already exists.')
+            alert('hello')
+        })
   }
 
   const handleInput = (e) => {
@@ -45,6 +51,7 @@ const NewTemplateFormComponent = () => {
               <label htmlFor="templateName">Template Name: </label><input type="text" id="templateName" required
                                                                           onChange={handleChange} value={nameState}/>
             </div>
+            {errorMessage ? <div className="text-danger">{errorMessage}</div> : ''}
             <div className="options-footer"><input type="submit" value="Upload"/><input type="button" value="Back"
                                                                                         onClick={() => {
                                                                                           history.push('/')

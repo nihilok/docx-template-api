@@ -16,7 +16,7 @@ export const FetchWithToken = async (
   }
   return await fetch(authState.apiBaseUrl + url, fetchInit).then((response) => {
     if (response.status !== 200) {
-      throw new Error(`Bad response: ${response.status}`)
+      throw new Error(`${response.status}`)
     }
     return response.json()
   })
