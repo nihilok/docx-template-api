@@ -41,7 +41,7 @@ const NewTemplateFormComponent = () => {
 
           <Redirect to={`/setup/${variablesState.letter_id}`}/> :
 
-          <form className="form-group" onSubmit={onSubmit} ref={formRef}>
+          <form className="form-group container" onSubmit={onSubmit} ref={formRef}>
             <div className="form-control">
               <label htmlFor="templateFile">Template File: </label><input type="file" id="templateFile"
                                                                           onInput={handleInput} required/>
@@ -51,7 +51,7 @@ const NewTemplateFormComponent = () => {
                                                                           onChange={handleChange} value={nameState}/>
             </div>
             {errorMessage ? <div className="text-danger">{errorMessage}</div> : ''}
-            <div className="options-footer">
+            <div className="options-footer full-width">
 
               <input type="button" value="Back"
                      onClick={() => {
