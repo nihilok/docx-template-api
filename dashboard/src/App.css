@@ -79,7 +79,6 @@ p, small {
 .login-form {
   max-width: 70ch;
   margin: auto;
-  min-height: 90vh;
 }
 
 .login-form .form-control {
