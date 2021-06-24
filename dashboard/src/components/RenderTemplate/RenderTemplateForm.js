@@ -75,8 +75,8 @@ const RenderTemplateForm = () => {
   }
 
   return (
-      <>
-        <h3>Render Template:</h3>
+      <div className="container">
+        <h3>New Report:</h3>
         <form onSubmit={handleSubmit} className={"form-group"}>
           {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
               variables ? variables.variables.map((variable, index) => (
@@ -114,7 +114,7 @@ const RenderTemplateForm = () => {
           <div className="form-control"><div/><a style={{marginTop: '1rem'}}
                 ref={downloadRef}>{downloadReady ? 'Download Report Again' : ''}</a></div>
         </form>
-      </>
+      </div>
   );
 };
 
