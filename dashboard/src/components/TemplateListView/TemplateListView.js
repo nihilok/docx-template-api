@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../../context/AuthContext";
 import {FetchWithToken} from "../../service/fetch-service";
 import './template-list.css'
-import TemplateSetup from "./TemplateSetup";
 import NewTemplateView from "../NewTemplateForm/NewTemplateView";
 import {Link, Redirect, useHistory} from "react-router-dom";
+
 
 const TemplateListView = () => {
 
@@ -14,16 +14,15 @@ const TemplateListView = () => {
   let history = useHistory();
 
   const getTemplates = async () => {
-    await FetchWithToken('/all-templates/', authState, setTemplateListState)
-
+    await FetchWithToken('/all-templates/', authState).then(data => setTemplateListState(data))
   }
 
   const getVariables = async (id) => {
-    await FetchWithToken(`/get-variables/?letter_id=${id}`, authState, setVariablesState)
+    await FetchWithToken(`/get-variables/?letter_id=${id}`, authState)
   }
 
   const handleOptions = (id) => (e) => {
-    getVariables(id)
+    history.push(`/setup/${id}`)
   }
 
   const handleUseTemplate = (id) => (e) => {
@@ -31,14 +30,12 @@ const TemplateListView = () => {
   }
 
   useEffect(() => {
-    getTemplates()
+    getTemplates().catch(err => console.log(err))
   }, [])
 
   return (
 
-      variablesState ? <TemplateSetup letter_id={variablesState.letter_id} requestObj={variablesState}
-                                      variables={variablesState.variables} setState={setVariablesState}
-                                      getTemplates={getTemplates}/> :
+      variablesState ? <Redirect to={`setup/${variablesState.letter_id}`} /> :
           templateListState && templateListState.length ?
               <div>
                 <h2>Current Report Templates:</h2>

@@ -2,15 +2,16 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import {FetchFile, FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
 import {useHistory} from "react-router-dom";
-import DialogueOkCancel from "../Modals/DialogueOkCancel";
 import {useParams} from 'react-router-dom';
+
 
 const RenderTemplateForm = () => {
 
   const letter_id = useParams()
   const [variables, setVariables] = useState(null)
   useEffect(() => {
-    FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState, setVariables,)
+    FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
+        .then(data => setVariables(data))
   }, [])
 
   const {authState} = useContext(AuthContext)

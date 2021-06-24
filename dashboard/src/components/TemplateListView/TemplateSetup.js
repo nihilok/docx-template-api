@@ -1,45 +1,47 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FetchWithToken} from "../../service/fetch-service";
 import {AuthContext} from "../../context/AuthContext";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import DialogueOkCancel from "../Modals/DialogueOkCancel";
 
-const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates}) => {
+const TemplateSetup = () => {
 
-  const [variableListState, setVariableListState] = useState(variables)
+  const letter_id = useParams()
+  const [fetchData, setFetchData] = useState(null)
+  const [variableListState, setVariableListState] = useState(null)
   const [deleting, setDeleting] = useState(false)
   const {authState} = useContext(AuthContext)
   let history = useHistory();
+
+  useEffect(()=>{
+    console.log()
+    FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
+        .then((data)=>setVariableListState(data.variables))
+  }, [])
 
   const handleChange = index => (event) => {
     let newArr = [...variableListState];
     newArr[index].var_prompt = event.target.value;
     setVariableListState(newArr);
-    setState(prev => ({
-      ...prev,
-      variables: variableListState
-    }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const body = {
-      letter_id: requestObj.letter_id,
+      letter_id: letter_id.id,
       variables: variableListState
     }
 
-    FetchWithToken(`/set-variables/`, authState, null, 'PUT', body)
+    FetchWithToken(`/set-variables/`, authState, 'PUT', body)
         .then(() => {
-          setState(null)
           history.push('/');
-          window.location.reload()  // TODO: SORT THIS OUT!
         })
 
   }
 
   const handleCancel = () => {
-      setState(null)
+      history.push('/')
   }
 
   const handleDelete = (e) => {
@@ -48,12 +50,10 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
   }
 
   const deleteTemplate = (id) => {
-    FetchWithToken(`/delete-template/?letter_id=${id}`, authState, null, 'DELETE')
+    FetchWithToken(`/delete-template/?letter_id=${id}`, authState, 'DELETE')
         .finally(() => {
           setDeleting(false)
-          setState(null)
           history.push('/')
-          window.location.reload() // TODO: SORT THIS OUT!
         })
   }
 
@@ -62,7 +62,7 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
         <h3>Set variable prompts:</h3>
         <small>Here you can specify more 'human-readable' prompts for each variable / section. If you leave this blank, the displayed variable name will be used as prompt.</small>
         <form onSubmit={handleSubmit} className="form-group">
-          {variableListState.length ? variableListState.map((variable, index) => (
+          {variableListState && variableListState.length ? variableListState.map((variable, index) => (
                   <div className="form-control" key={variable.var_name}>
                     <label>{variable.var_name.startsWith('__para_') ? variable.var_name.substring(7) + ' (paragraph)' : variable.var_name}</label>
                       <input type="text" name={variable.var_name}
@@ -76,7 +76,7 @@ const TemplateSetup = ({letter_id, variables, requestObj, setState, getTemplates
           <input type="submit" onClick={handleCancel} value="Cancel"/>
           <input type="submit" value="Save" onClick={handleSubmit}/>
           <input type="submit" onClick={handleDelete} value="Delete"/></div>
-        {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id)}
+        {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id.id)}
                                       cancel={() => setDeleting(false)}/> : ''}
       </>
   );
