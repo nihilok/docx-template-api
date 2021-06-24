@@ -20,7 +20,7 @@ const TemplateListView = () => {
     await FetchWithToken('/all-templates/', authState)
         .then(data => setTemplateListState(data))
         .catch(err => console.log(err))
-        .finally(() => setTimeout(()=>setIsLoading(false), loadingDelay))
+        .finally(() => setTimeout(() => setIsLoading(false), loadingDelay))
   }
 
   // const getVariables = async (id) => {
@@ -40,24 +40,27 @@ const TemplateListView = () => {
   }, [])
 
   return (
+      <div>
+        <h2>Current Report Templates:</h2>
+        {isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
+            variablesState ? <Redirect to={`setup/${variablesState.letter_id}`}/> :
+                templateListState && templateListState.length ?
+                    <>
+                      {templateListState.map(template => {
+                        return (
+                            <div className="template-list-row" key={template.id}>
+                              <div className="template-name">{template.name}</div>
+                              <div className="template-link" onClick={handleOptions(template.id)}>Edit</div>
+                              <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
+                            </div>
+                        )
+                      })}
 
-      isLoading ? <Loader classname={"Loader-trans Loader-black"}/> :
-          variablesState ? <Redirect to={`setup/${variablesState.letter_id}`}/> :
-              templateListState && templateListState.length ?
-                  <div>
-                    <h2>Current Report Templates:</h2>
-                    {templateListState.map(template => {
-                      return (
-                          <div className="template-list-row" key={template.id}>
-                            <div className="template-name">{template.name}</div>
-                            <div className="template-link" onClick={handleOptions(template.id)}>Edit</div>
-                            <div className="template-link" onClick={handleUseTemplate(template.id)}>Use Template</div>
-                          </div>
-                      )
-                    })}
-                    <div className="options-footer"><Link to="/new">Upload new template</Link>
-                      <Link to="/logout">Logout</Link></div>
-                  </div> : <NewTemplateView getTemplates={getTemplates}/>
+                    </>
+                    : <Redirect to={'/new'}/>}
+        <div className="options-footer"><Link to="/new">Upload new template</Link>
+                        <Link to="/logout">Logout</Link></div>
+      </div>
 
   );
 };
