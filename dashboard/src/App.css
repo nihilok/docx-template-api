@@ -17,6 +17,11 @@
   flex-direction: column;
 }
 
+p, small {
+  max-width: 70ch;
+  margin: 1rem auto;
+}
+
 .form-group {
   min-height: 100%;
   display: flex;
