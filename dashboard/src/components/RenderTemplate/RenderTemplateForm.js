@@ -17,7 +17,7 @@ const RenderTemplateForm = () => {
     FetchWithToken(`/get-variables/?letter_id=${letter_id.id}`, authState)
         .then(data => setVariables(data))
         .catch((err) => console.log(err))
-        .finally(() => setTimeout(()=>setIsLoading(false), loadingDelay))
+        .finally(() => setTimeout(() => setIsLoading(false), loadingDelay))
   }, [])
 
   const {authState} = useContext(AuthContext)
@@ -70,9 +70,13 @@ const RenderTemplateForm = () => {
                                       onChange={handleChange(index)}
                                       value={variable.response || ''}
                                       rows="8"/> :
-                            <input type="text" name={variable.var_name}
-                                   value={variable.response || ''}
-                                   onChange={handleChange(index)}/>}
+                            variable.var_name.startsWith('time_') ?
+                                <input type="time" name={variable.var_name}
+                                       value={variable.response || ''}
+                                       onChange={handleChange(index)}/> :
+                        <input type="text" name={variable.var_name}
+                               value={variable.response || ''}
+                               onChange={handleChange(index)}/>}
                       </div>
                   ))
                   : 'Nothing here, did you include variables e.g: {{variable}} in your template?'}
@@ -80,7 +84,7 @@ const RenderTemplateForm = () => {
           <div className="options-footer"><input type="button" value="Back" onClick={() => {
             history.push('/')
           }}/>{!isLoading ? <input type="submit"
-                                  value="Render Report"/> : ''}</div>
+                                   value="Render Report"/> : ''}</div>
           <a style={{marginTop: '1rem'}}
              ref={downloadRef}>{downloadReady ? 'Download Report' : ''}</a>
         </form>
