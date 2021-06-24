@@ -161,8 +161,8 @@
 }
 
 .Loader-black .lds-ring div {
-    border: .5rem solid #000;
-    border-color: #000 transparent transparent transparent;
+    border: .5rem solid var(--primary-color);
+    border-color: var(--primary-color) transparent transparent transparent;
 }
 
 .Loader-block {
