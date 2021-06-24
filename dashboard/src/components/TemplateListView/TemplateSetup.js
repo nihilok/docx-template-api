@@ -89,17 +89,13 @@ const TemplateSetup = () => {
                     template?</div>}
             </form>}
 
-        <div className={!isLoading ? "form-control" : 'my-3'}>
-          <div/>
-          <div className={!isLoading ? "options-footer" : ''}>
-            <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
+        <div className={!isLoading ? "options-footer" : ''}>
+          <input type="submit" onClick={handleCancel} value="Cancel" className=""/>
 
-            {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}
-            {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
-          </div>
+          {!isLoading ? <input type="submit" onClick={handleDelete} value="Delete" className="bg-danger"/> : ''}
+          {!isLoading ? <input type="submit" value="Save" onClick={handleSubmit} className="bg-success"/> : ''}
         </div>
-        <div className="form-control">
-          <div/>
+        <div>
           <a ref={downloadRef}>{!isLoading ? "Download Original Template" : ''}</a></div>
 
         {deleting ? <DialogueOkCancel callback={() => deleteTemplate(letter_id.id)}
