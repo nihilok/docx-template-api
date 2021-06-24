@@ -43,7 +43,6 @@ const RenderTemplateForm = () => {
 
     const body = {
       responses: variables.variables,
-      local_time: dateString
     }
 
     let checkResponse = false
@@ -60,7 +59,7 @@ const RenderTemplateForm = () => {
     console.log(body)
 
     if (checkResponse) {
-      FetchFile(`/render-template/?letter_id=${variables.letter_id}`, authState, 'POST', body)
+      FetchFile(`/render-template/?letter_id=${variables.letter_id}&local_time=${dateString}`, authState, 'POST', body)
         .then((data) => {
           const href = window.URL.createObjectURL(data);
           const a = downloadRef.current;

@@ -100,7 +100,8 @@ async def render_template(letter_id: int,
     letter = await Letter.get(id=letter_id)
     template = DocxTemplate(letter.filename)
     if local_time:
-        local_time = datetime.datetime.strptime(local_time, '%Y-%b-%d %H:%M')
+        print(local_time)
+        local_time = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M')
     else:
         local_time = datetime.datetime.now()
     context = {
