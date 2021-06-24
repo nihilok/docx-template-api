@@ -149,5 +149,5 @@ p, small {
   left: 0;
   padding: 1rem;
   line-height: 1.1;
-  box-shadow: 0 2px 5px var(--primary-dark);
+  box-shadow: 0 .1rem .2rem var(--primary-dark);
 }
