@@ -166,3 +166,7 @@ a:focus {
 a:visited {
     color: inherit;
 }
+
+input[type="time"] {
+    min-height: 1rem;
+}
