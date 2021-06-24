@@ -19,7 +19,7 @@ const NewTemplateView = ({getTemplates}) => {
                 "__para_"</small> <p>e.g: <code>{'{{__para_variable}}'}</code></p>
               <small>Variables prefixed with "time_" will render a time input in the form.</small>
             <p>e.g: <code>{'{{time_of_appointment}}'}</code></p>
-              <small>Variable names <code>{"{{time}}, {{year}}, {{month}}, & {{date}}"}</code> are reserved, and will return HH:MM, YYYY, MM, & DD respectively at the time of rendering.</small>
+              <small>Variable names <code>{"{{time}}, {{year}}, {{month}}, & {{day}}"}</code> are reserved, and will return HH:MM, YYYY, MM, & DD respectively at the time of rendering.</small>
             </div> : ''}
         <div className="form-group" style={{margin: '1rem'}}><a href="#" type="submit" onClick={() => setShowHelp(!showHelp)}
                                                                     >{showHelp ? 'Hide Help' : 'Show Help'}</a></div>
