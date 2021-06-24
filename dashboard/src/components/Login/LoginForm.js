@@ -42,7 +42,7 @@ const Login = () => {
   return (
 
       <div className="full-page-component">
-        <form ref={form} onSubmit={handleSubmit} className={"form-group"}>
+        <form ref={form} onSubmit={handleSubmit} className={"form-group login-form"}>
           <div className="form-control">
             <label htmlFor="username">Username</label><input name="username" type="text"
                                                              placeholder="Username"

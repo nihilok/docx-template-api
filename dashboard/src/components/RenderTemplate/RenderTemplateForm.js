@@ -51,6 +51,7 @@ const RenderTemplateForm = () => {
           const a = downloadRef.current;
           a.download = `GeneratedReport-${variables.letter_id}-${new Date()}.docx`;
           a.href = href;
+          a.click()
           setDownloadReady(true)
         }).catch(err => console.log(err))
   }
@@ -86,7 +87,7 @@ const RenderTemplateForm = () => {
           }}/>{!isLoading ? <input type="submit"
                                    value="Render Report"/> : ''}</div>
           <a style={{marginTop: '1rem'}}
-             ref={downloadRef}>{downloadReady ? 'Download Report' : ''}</a>
+             ref={downloadRef}>{downloadReady ? 'Download Report Again' : ''}</a>
         </form>
       </>
   );

@@ -5,16 +5,18 @@
   padding: 2rem;
 }
 
-.full-page-component {
-  width: calc(50vw - 4rem);
-  height: calc(100vh - 4rem);
-
-}
+/*.full-page-component {*/
+/*  width: calc(50vw - 4rem);*/
+/*  height: calc(100vh - 4rem);*/
+/*  margin: 0 auto;*/
+/*}*/
 
 .container {
   max-width: 768px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 p, small {
@@ -56,6 +58,16 @@ p, small {
   gap: 1rem;
   justify-content: center;
   align-items: center
+}
+
+.login-form {
+  max-width: 70ch;
+  margin: auto;
+  min-height: 90vh;
+}
+
+.login-form .form-control {
+  grid-template-columns: 1fr;
 }
 
 @media (max-width: 768px) {
