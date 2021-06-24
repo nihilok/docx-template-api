@@ -51,10 +51,13 @@ const NewTemplateFormComponent = () => {
                                                                           onChange={handleChange} value={nameState}/>
             </div>
             {errorMessage ? <div className="text-danger">{errorMessage}</div> : ''}
-            <div className="options-footer"><input type="submit" value="Upload"/><input type="button" value="Back"
-                                                                                        onClick={() => {
-                                                                                          history.push('/')
-                                                                                        }}/></div>
+            <div className="options-footer">
+
+              <input type="button" value="Back"
+                     onClick={() => {
+                       history.push('/')
+                     }}/>
+            <input type="submit" value="Upload" className={"bg-success"}/></div>
           </form>
   );
 };
