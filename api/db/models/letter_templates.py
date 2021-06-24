@@ -37,11 +37,14 @@ class ResponsesIn(BaseModel):
 
 class Letter(Model):
     id = fields.IntField(pk=True)
-    name = fields.CharField(100, unique=True)
+    name = fields.CharField(100)
     filename = fields.CharField(128, null=True)
     template_file = fields.BinaryField(null=True)
     variables = fields.BinaryField(null=True)
     premises = fields.ForeignKeyField('models.Premises', related_name='letters')
+
+    class Meta:
+        unique_together = ('name', 'premises_id')
 
     async def add_variables(self, variables: VariablesIn):
         var_list = pickle.loads(self.variables) if self.variables else []
