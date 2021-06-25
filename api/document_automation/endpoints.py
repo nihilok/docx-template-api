@@ -1,6 +1,8 @@
+import asyncio
 import datetime
 import os
 import pickle
+import time
 from typing import Optional
 
 from jinja2.exceptions import TemplateSyntaxError
@@ -38,7 +40,9 @@ async def create_new_template(name: str = Form(...),
 async def delete_template(letter_id: int,
                           user: UserPydantic = Depends(get_current_active_user)):
     letter = await Letter.get(id=letter_id)
+    path = letter.filename
     await letter.delete()
+    os.remove(path)
     return {}
 
 
@@ -78,14 +82,16 @@ async def get_variables(letter_id: int,
     try:
         template = DocxTemplate(letter.filename)
         check_text = await get_full_text(letter.filename)
-        template_variables = [v for v in template.undeclared_template_variables if v not in defaults]
+        template_variables = [v for v in template.undeclared_template_variables
+                              if v not in defaults]
         ordered_vars = await sort_vars(check_text, template_variables)
         return VariablesOut(variables=[LetterVariable(var_name=variable)
                                        for variable in ordered_vars],
                             letter_id=letter_id)
     except TemplateSyntaxError as e:
         await letter.delete()
-        raise HTTPException(status_code=400, detail=f"Template formatted incorrectly: {e}")
+        raise HTTPException(status_code=400,
+                            detail=f"Template formatted incorrectly: {e}")
 
 
 @router.put('/set-variables/')
@@ -96,6 +102,12 @@ async def set_variables(variables: VariablesIn,
         letter.variables = None
     await letter.add_variables(variables)
     return {'message': 'variables set'}
+
+
+def delete_old_letters(filepath: str):
+    time.sleep(10)
+    os.remove(filepath)
+    print('letter deleted')
 
 
 @router.post('/render-template/')
@@ -120,8 +132,11 @@ async def render_template(letter_id: int,
 
     template.render(context)
     new_path = (template_path + str(user.premises.id) + '/generated_documents/' +
-                f"{context['year']}-{context['month']}-{context['day']} - {context['time']}" + '.docx')
+                f"{context['year']}-{context['month']}-{context['day']} - {context['time']}"
+                + '.docx')
     template.save(new_path)
+    loop = asyncio.get_event_loop()
+    loop.call_later(5, delete_old_letters, new_path)
     return FileResponse(new_path)
 
 
