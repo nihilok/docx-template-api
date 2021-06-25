@@ -153,7 +153,6 @@ a {
     text-decoration: none;
     color: var(--link-text) !important;
     cursor: pointer;
-    width: auto;
 }
 
 a:hover, a:focus {
@@ -161,10 +160,6 @@ a:hover, a:focus {
     text-decoration: underline;
     color: var(--primary-color) !important;
     border-radius: 5px;
-}
-
-a:focus {
-    box-shadow: var(--focus-box);
 }
 
 a:visited {

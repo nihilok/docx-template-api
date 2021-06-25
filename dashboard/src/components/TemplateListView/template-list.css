@@ -6,6 +6,7 @@
     padding: 1rem;
     justify-content: center;
     align-items: center;
+    width: auto;
 }
 
 .template-name {
@@ -14,10 +15,8 @@
 
 .template-link {
     cursor: pointer;
-    flex-grow: 0;
-    width: auto;
+    display: block;
     padding: 0 1rem;
-    display: flex;
 }
 
 .template-link:hover {
