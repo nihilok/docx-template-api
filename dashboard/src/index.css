@@ -99,17 +99,21 @@ input::-moz-focus-inner, input[type="checkbox"],
 input[type="radio"], input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button, input[type="search"], input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
-    border: none;
+    /*border: none;*/
     background-image: none;
     background-color: transparent;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
+input[type="button"], input[type="submit"], button {
+    background-color: #eee;
+}
 
-input:focus, textarea:focus {
+
+input:focus, textarea:focus, button:focus, input[type="button"]:focus {
     outline: none;
-    box-shadow: var(--focus-box);
+    box-shadow: var(--focus-box) !important;
 }
 
 body {
@@ -128,7 +132,7 @@ code {
 
 input, textarea, select {
     -webkit-appearance: none;
-    -moz-appearance: none;
+    /*-moz-appearance: none;*/
     border-radius: 5px;
     padding: .5rem;
     font-family: inherit;
