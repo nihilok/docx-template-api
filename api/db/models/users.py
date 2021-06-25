@@ -25,6 +25,9 @@ class User(Model):
     password_hash = fields.CharField(128)
     premises = fields.ForeignKeyField('models.Premises', related_name='users')
 
+    class Meta:
+        unique_together = ('name', 'premises_id')
+
     @classmethod
     async def get_user(cls, name, **kwargs):
         return cls.get(name=name)
