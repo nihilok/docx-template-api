@@ -108,6 +108,7 @@ input[type="search"]::-webkit-search-decoration {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    -webkit-appearance: none;
 }
 
 input[type="button"], input[type="submit"], button {
@@ -135,8 +136,6 @@ code {
 }
 
 input, textarea, select {
-    -webkit-appearance: none;
-    /*-moz-appearance: none;*/
     border-radius: 5px;
     padding: .5rem;
     font-family: inherit;
