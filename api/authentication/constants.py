@@ -1,5 +1,4 @@
-TESTING = True      # Uses benign heating system when True
-# API will fail if no heating system in place when False
+TESTING = True
 
 origins = [
     'https://localhost:4000',
