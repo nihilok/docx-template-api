@@ -8,10 +8,10 @@ from . import authentication
 
 
 # Create ASGI app:
-app = FastAPI(root_path='/msword')
+app = FastAPI()
+# app = FastAPI(root_path='/msword')
 app.include_router(authentication.router)
 app.include_router(document_automation.router)
-
 
 
 # CORS Permissions:
@@ -38,6 +38,7 @@ def custom_openapi():
     }
     app.openapi_schema = openapi_schema
     return app.openapi_schema
+
 
 app.openapi = custom_openapi
 

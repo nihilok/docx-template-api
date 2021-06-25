@@ -91,7 +91,7 @@ const RenderTemplateForm = () => {
                                       rows="8"/> :
                             variable.var_name.startsWith('time_') ?
                                 <input type="time" name={variable.var_name}
-                                       value={variable.response || ''}
+                                       value={variable.response || '--:--'}
                                        onChange={handleChange(index)}/> :
                                 <input type="text" name={variable.var_name}
                                        value={variable.response || ''}
