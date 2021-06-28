@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, File, UploadFile, Form, HTTPException
 from docxtpl import DocxTemplate
 from fastapi.responses import FileResponse
 from .constants import template_path
+from .templating_engine.templating_engine import get_sorted_variables, generate_report
 from ..authentication import get_current_active_user
 from ..db.models import Letter, LetterPydantic, LetterVariable, VariablesOut, VariablesIn, ResponsesIn
 from ..db.models.users import UserPydantic, User
@@ -51,23 +52,9 @@ async def update_template_file(letter_id: int, file: UploadFile = File(...),
                                user: UserPydantic = Depends(get_current_active_user)):
     letter = await Letter.get(id=letter_id)
     await letter.add_binary(file)
+    letter.variables = None
+    await letter.save()
     return await LetterPydantic.from_tortoise_orm(letter)
-
-
-async def get_full_text(filename) -> str:
-    doc = Document(filename)
-    full_text = []
-    for para in doc.paragraphs:
-        full_text.append(para.text)
-    return ' '.join(full_text)
-
-
-async def sort_vars(check_text, template_variables) -> list:
-    ordered_vars = []
-    for word in check_text.split(' '):
-        if word[2:-2] in template_variables and word[2:-2] not in ordered_vars:
-            ordered_vars.append(word[2:-2])
-    return ordered_vars
 
 
 # TODO: template rendering endpoint
@@ -78,13 +65,8 @@ async def get_variables(letter_id: int,
     if letter.variables:
         return VariablesOut(variables=pickle.loads(letter.variables),
                             letter_id=letter_id)
-    defaults = {'time', 'year', 'month', 'day'}
     try:
-        template = DocxTemplate(letter.filename)
-        check_text = await get_full_text(letter.filename)
-        template_variables = [v for v in template.undeclared_template_variables
-                              if v not in defaults]
-        ordered_vars = await sort_vars(check_text, template_variables)
+        ordered_vars = await get_sorted_variables(letter)
         return VariablesOut(variables=[LetterVariable(var_name=variable)
                                        for variable in ordered_vars],
                             letter_id=letter_id)
@@ -104,39 +86,13 @@ async def set_variables(variables: VariablesIn,
     return {'message': 'variables set'}
 
 
-def delete_old_letters(filepath: str):
-    time.sleep(10)
-    os.remove(filepath)
-    print('letter deleted')
-
-
 @router.post('/render-template/')
 async def render_template(letter_id: int,
                           responses: ResponsesIn,
                           user: UserPydantic = Depends(get_current_active_user),
                           local_time: Optional[str] = None):
     letter = await Letter.get(id=letter_id)
-    template = DocxTemplate(letter.filename)
-    if local_time:
-        local_time = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M')
-    else:
-        local_time = datetime.datetime.now()
-    context = {
-        'day': local_time.strftime('%d'),
-        'month': local_time.strftime('%b'),
-        'year': local_time.strftime('%Y'),
-        'time': local_time.strftime('%H:%M')
-    }
-    for r in responses.responses:
-        context[r.var_name] = r.response
-
-    template.render(context)
-    new_path = (template_path + str(user.premises.id) + '/generated_documents/' +
-                f"{context['year']}-{context['month']}-{context['day']} - {context['time']}"
-                + '.docx')
-    template.save(new_path)
-    loop = asyncio.get_event_loop()
-    loop.call_later(5, delete_old_letters, new_path)
+    new_path = await generate_report(letter, responses.responses, local_time, user.premises.id)
     return FileResponse(new_path)
 
 
